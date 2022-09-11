@@ -7,4 +7,4 @@ Lend My Skill
 
 </div>
 
-An OpenSource Freelance Platform for Everyone.
+An OpenSource Freelance Platform for Everyone. This is a project created for Business Blaster Project.
