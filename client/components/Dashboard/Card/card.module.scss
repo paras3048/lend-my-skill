@@ -1,0 +1,6 @@
+.card {
+  width: max-content;
+  height: max-content;
+  padding: 2rem;
+  @apply flex flex-col items-center justify-between  hover:scale-110 duration-75  hover:z-10 rounded-xl shadow-sm shadow-gray-600 hover:bg-[#fbfbfb] mx-5;
+}

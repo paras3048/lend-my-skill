@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "User" ADD COLUMN     "UPIID" TEXT NOT NULL DEFAULT '';

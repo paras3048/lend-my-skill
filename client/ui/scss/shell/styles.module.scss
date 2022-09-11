@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  flex-direction: row;
+}
+.sidebar {
+  flex: 0.35;
+}
+
+.chatContainer {
+  flex: 1;
+  @apply m-4 p-2 rounded-md;
+  border: 1px solid #9ca3af;
+  min-height: 100vh;
+}

@@ -1,0 +1,28 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+  @apply px-5 py-5 pb-2;
+  border-bottom: 1px solid gray;
+  border-bottom-width: 1px;
+  border-bottom-style: dotted;
+  .title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-weight: bolder;
+    @apply text-xl text-blue-500 cursor-pointer;
+  }
+  .description {
+    overflow: hidden;
+    text-overflow: "...";
+    word-wrap: break-word;
+    word-break: break-all;
+    font-weight: unset;
+    padding: 0 !important;
+    @apply text-gray-800;
+  }
+}

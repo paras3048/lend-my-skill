@@ -1,0 +1,7 @@
+.ordersContainer {
+  display: flex;
+  font-family: "Whyte";
+  @apply text-xl pb-4 rounded-md mt-4 ml-2;
+  border: 1px solid #9ca3af;
+  flex-direction: column;
+}

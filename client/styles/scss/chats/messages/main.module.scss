@@ -1,0 +1,18 @@
+.ChatContainer {
+	flex: 0.75;
+	margin-left: 1rem;
+	margin-top: 1rem;
+	margin-right: 0.5rem;
+	& * {
+		font-family: "Whyte";
+		font-size: 1.25rem;
+	}
+	border: 1px solid #2b2c2f;
+	padding: 0.5rem;
+	border-radius: 5px;
+	overflow-y: scroll;
+	padding-bottom: 0;
+	max-width: 100%;
+	overflow-x: hidden;
+	height: 100vh;
+}

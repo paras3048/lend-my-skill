@@ -1,0 +1,45 @@
+.container {
+  flex-direction: row;
+  @apply p-4  bg-gray-200 hover:scale-105 transition-all duration-150 border-[1px] border-slate-400 rounded-lg cursor-pointer flex items-center justify-center;
+  height: fit-content;
+  width: max-content;
+  padding: 1rem;
+  @media (max-width: 450px) {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.information {
+  @apply flex flex-col ml-4 pl-4;
+  @media (max-width: 450px) {
+    @apply ml-0 pl-0;
+  }
+}
+
+.avatar {
+  margin-left: auto;
+  margin-right: auto;
+  > img {
+    width: 200px;
+    @media (max-width: 768px) {
+      height: auto;
+      border-radius: 0px;
+      margin-top: unset;
+    }
+  }
+  @media (max-width: 768px) {
+    @apply my-auto mx-0;
+  }
+}
+.content {
+  & h3 {
+    font-family: "Whyte";
+    @apply text-lg;
+    & span {
+      display: block;
+      @apply text-gray-600;
+    }
+  }
+}

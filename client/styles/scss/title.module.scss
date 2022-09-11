@@ -1,0 +1,156 @@
+.markdown {
+  & > * {
+    list-style-type: unset;
+    & a {
+      @apply text-blue-500 font-bold;
+    }
+    & code {
+      color: #ed217c;
+      background-color: #eaeaea;
+      padding: 0 0.3%;
+      border-radius: 5px;
+    }
+  }
+  @apply p-10;
+}
+.container {
+  @apply p-4 flex flex-row flex-grow;
+  .title {
+    font-family: "Whyte";
+    font-weight: bold;
+    @apply text-2xl my-4 mb-2;
+  }
+  .userinfo {
+    @apply flex flex-row items-center;
+  }
+  .username {
+    @apply ml-3;
+    font-family: "Whyte";
+  }
+  .rating {
+    @apply inline-flex flex-row  pl-4;
+    &:before {
+      content: "|";
+      color: #c5c6c9;
+      margin-right: 8px;
+      height: 10px;
+    }
+  }
+  .ratedBy {
+    @apply mx-1;
+  }
+  .carousel {
+    @apply mt-5;
+  }
+  .carouselRoot {
+    max-width: 50vw;
+  }
+  .description {
+    @extend .markdown !optional;
+    width: 50vw;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-wrap: break-word;
+    word-break: break-all;
+    font-family: "Poppins";
+  }
+
+  .offers {
+    width: 100%;
+    & > div {
+      max-height: max-content !important;
+      @apply ml-8 mt-[7.15rem] border-[1px] border-gray-400 rounded-lg relative;
+    }
+  }
+  .tab {
+    @apply py-2 py-4 border-r-[1px] border-r-gray-400;
+  }
+  .panel {
+    max-height: fit-content;
+  }
+  .offerDescription {
+    @extend .markdown;
+    @apply p-0 mt-4 text-lg;
+  }
+  .offer {
+    font-family: "Poppins";
+  }
+  .offerNameAndPrice {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .offerName {
+    font-family: "Whyte";
+    @apply text-2xl;
+  }
+  .offerPrice {
+    font-family: "Roboto";
+    @apply text-2xl;
+  }
+  .aboutTheSeller {
+    @apply p-4 border-[1px] border-gray-400 rounded-lg;
+  }
+  .aboutTheSellerHeading {
+    font-family: "Whyte";
+    @apply ml-4 text-2xl mb-4;
+  }
+  .sellerBox {
+    display: flex;
+    flex-direction: row;
+    & span {
+      display: block;
+      @apply text-gray-600;
+    }
+    & span:nth-child(2) {
+      @apply text-lg text-gray-800;
+      font-weight: bolder;
+    }
+  }
+  .rightDetail {
+    @apply ml-5;
+  }
+  .leftDetail {
+    @apply flex flex-col;
+    & span {
+      display: block;
+    }
+    & span:nth-child(2) {
+      @apply text-lg;
+      font-weight: bolder;
+    }
+  }
+  .offerHiddenForBigScreen {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+  .carouselRoot {
+    width: 100%;
+    max-width: unset !important;
+  }
+  .description {
+    width: 100% !important;
+  }
+  .offers {
+    & div {
+      margin-left: 0 !important;
+    }
+    display: none;
+  }
+  .offerHiddenForBigScreen {
+    display: unset !important;
+  }
+}
+
+@media (max-width: 450px) {
+  .description {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}

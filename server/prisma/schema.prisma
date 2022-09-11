@@ -1,0 +1,146 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String          @id @unique @default(uuid())
+  username        String          @unique
+  password        String
+  email           String          @unique
+  name            String
+  bio             String          @default("")
+  detailedBio     String          @default("")
+  verified        Boolean         @default(false)
+  emailVerified   Boolean         @default(false)
+  profileURL      String          @default("")
+  kycDocuments    String[]
+  acceptingOrders Boolean         @default(true)
+  rating          Int             @default(0)
+  ratedBy         BigInt          @default(0)
+  createdAt       DateTime        @default(now())
+  UPIID           String          @default("")
+  status          UserStatus      @default(offline)
+  notifications   Notifications[]
+  postings        Postings[]
+  reviews         Reviews[]
+  Message         Message[]
+  Chat            Chat[]
+}
+
+enum UserStatus {
+  online
+  offline
+  dnd
+}
+
+model Notifications {
+  id          String   @id @unique @default(uuid())
+  name        String
+  description String
+  createdAt   DateTime @default(now())
+  seen        Boolean  @default(false)
+  User        User?    @relation(fields: [userId], references: [id])
+  userId      String?
+}
+
+model Postings {
+  id             String     @id @unique @default(uuid())
+  title          String
+  description    String
+  postedAt       DateTime   @default(now())
+  userId         String?
+  slugifiedTitle String
+  images         String[]   @default([])
+  heroImage      String
+  User           User?      @relation(fields: [userId], references: [id])
+  offers         Offers[]
+  category       Category[]
+}
+
+model Offers {
+  id           String    @id @unique @default(uuid())
+  deliveryTime Int
+  name         String
+  description  String
+  price        BigInt
+  Postings     Postings? @relation(fields: [postingsId], references: [id])
+  postingsId   String?
+}
+
+model Reviews {
+  id        String   @id @unique @default(uuid())
+  message   String
+  createdAt DateTime @updatedAt
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?
+  creatorId String
+  stars     Int
+}
+
+model Orders {
+  id        String      @id @unique @default(cuid())
+  sellerId  String
+  buyerId   String
+  createdAt DateTime    @default(now())
+  status    OrderStatus @default(incomplete)
+  chat      Chat        @relation(fields: [chatId], references: [id])
+  chatId    String
+  price     BigInt      @default(0)
+}
+
+enum OrderStatus {
+  complete
+  incomplete
+}
+
+model Chat {
+  id       String    @id @unique @default(uuid())
+  messages Message[]
+  buyerId  String
+  sellerId String
+  openedAt DateTime  @default(now())
+  Orders   Orders[]
+  user     User      @relation(fields: [userId], references: [id])
+  userId   String
+}
+
+model Message {
+  id        String          @id @unique @default(uuid())
+  Chat      Chat?           @relation(fields: [chatId], references: [id])
+  chatId    String?
+  sender    User            @relation(fields: [userId], references: [id])
+  userId    String
+  createdAt DateTime        @default(now())
+  type      MessageVariants @default(text)
+  bySystem  Boolean         @default(false)
+  content   String
+}
+
+enum MessageVariants {
+  image
+  text
+}
+
+model TrackedOrders {
+  id        String   @id @unique @default(uuid())
+  createdAt DateTime @default(now())
+  sellerId  String
+  buyerId   String
+}
+
+model Category {
+  id          String    @id @unique @default(cuid())
+  name        String
+  createdAt   DateTime  @default(now())
+  description String
+  Postings    Postings? @relation(fields: [postingsId], references: [id])
+  postingsId  String?
+}

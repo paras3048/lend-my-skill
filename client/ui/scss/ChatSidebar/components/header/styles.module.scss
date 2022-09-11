@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  @apply flex-col;
+  & span {
+    font-family: "Whyte";
+    text-align: center;
+    display: block;
+    @apply mb-2;
+  }
+  @apply text-xl py-4 ml-2 rounded-md mt-4 mb-2;
+  border: 1px solid #9ca3af;
+}

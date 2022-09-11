@@ -1,0 +1,24 @@
+.sidebarContainer {
+	flex: 0.28;
+	margin-top: 1rem;
+	margin-left: 0.5rem;
+	& * {
+		font-family: "Whyte";
+		font-size: 1.25rem;
+	}
+	border: 1px solid #2b2c2f;
+	padding: 0.5rem;
+	border-radius: 5px;
+	max-height: 100vh;
+	overflow-y: scroll;
+	height: fit-content;
+	position: sticky;
+}
+
+.activeChatSpan {
+	margin-bottom: 1rem;
+	padding-bottom: 0.5rem;
+	display: block;
+	border-bottom: 1px solid #2b2c2f;
+	margin-left: 10px;
+}

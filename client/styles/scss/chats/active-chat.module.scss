@@ -1,0 +1,45 @@
+.chatItem {
+	display: flex;
+	flex-direction: row;
+	&:hover,
+	&:active {
+		cursor: pointer;
+	}
+	padding: 0.8rem;
+	border-radius: 10px;
+}
+.active {
+	background-color: #1e1f25;
+}
+.username {
+	display: inline-block;
+	margin: 0 auto;
+	margin-left: 0rem;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	word-break: break-all;
+	white-space: nowrap;
+	max-width: 240px;
+}
+.messagePreview {
+	display: inline-block;
+	font-size: small;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	max-height: 20px !important;
+	word-break: break-all;
+	white-space: nowrap;
+	color: gray;
+	max-width: 240px;
+}
+.spansContainer {
+	display: flex;
+	flex-direction: column;
+	margin-left: 0.5rem;
+}
+
+.activeChatContainer {
+	border-top: 1px solid #373a40;
+	border-bottom: 1px solid #373a40;
+	padding: 0.5rem 0rem;
+}

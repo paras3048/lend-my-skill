@@ -1,0 +1,79 @@
+.profileContainer {
+  flex: 0.35;
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    max-height: fit-content;
+    & .baseDetailsContainer {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      @apply mt-10;
+    }
+    & .names {
+      @apply flex flex-col ml-10;
+      @media (max-width: 400px) {
+        @apply ml-0;
+      }
+    }
+  }
+}
+.avatar {
+  margin-left: auto;
+  margin-right: auto;
+  @apply mt-10;
+  > img {
+    width: 200px;
+    @media (max-width: 768px) {
+      height: auto;
+      border-radius: 0px;
+      margin-top: unset;
+    }
+  }
+  @media (max-width: 768px) {
+    @apply my-auto mx-0;
+  }
+}
+
+.name {
+  font-family: "Nimbus Sans";
+  @apply text-black text-2xl text-center;
+  @media (min-width: 768px) {
+    @apply mt-5;
+  }
+}
+
+.username {
+  @apply flex;
+  & svg {
+    margin-right: 5px;
+    @apply mt-auto;
+  }
+  & div {
+    @apply flex flex-row text-center text-gray-500 mx-auto;
+  }
+}
+
+.bio {
+  @apply text-center text-ellipsis overflow-hidden;
+  word-break: break-word;
+  @media (max-width: 768px) {
+    @apply mt-5;
+  }
+}
+
+.otherInfo {
+  @apply flex items-center justify-around;
+  font-size: 16px;
+  & .rating {
+    @apply text-center flex;
+    @media (max-width: 768px) {
+      @apply mt-2;
+    }
+    & svg {
+      @apply my-auto ml-[2px];
+    }
+  }
+}

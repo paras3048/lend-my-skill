@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  @apply pb-1 px-2 py-3 hover:bg-gray-300;
+  transition: all 150ms;
+  border-bottom: 1px solid #9ca3af;
+  // &:nth-child(1) {
+  //   @apply pt-4;
+  // }
+  // &:not(:nth-child(1)) {
+  //   @apply pt-1;
+  // }
+  cursor: pointer;
+}
+.order {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.userInfo {
+  display: flex;
+  flex-direction: row;
+}
+.username {
+  @apply mr-auto text-base;
+}
+.timestamp {
+  @apply text-sm;
+}
+
+.content {
+  @extend .timestamp;
+  word-wrap: break-word;
+  word-break: break-all;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 20px;
+  isolation: isolate;
+  display: inline-block;
+  font-size: small;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  max-height: 20px !important;
+  word-break: break-all;
+  white-space: nowrap;
+  max-width: 240px;
+}
+.wrapper {
+  @apply flex flex-col ml-2;
+}
+
+.usernameAndTimeStamp {
+  display: flex;
+  justify-content: space-between;
+}

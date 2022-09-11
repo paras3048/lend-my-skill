@@ -1,0 +1,20 @@
+services:
+  server:
+    container_name: lend-my-skill-backend
+    build: 
+      dockerfile: Dockerfile
+    restart: always
+    env_file:
+      - .env.prod
+    entrypoint:
+      - DATABASE_URL=$DATABASE_URL
+      - JWT_SECRET=$JWT_SECRET
+      - SUPABASE_URL=$SUPABASE_URL
+      - SUPABASE_KEY=$SUPABASE_KEY
+      - WEBHOOK_SECRET=$WEBHOOK_SECRET
+      - RAZORPAY_KEY_ID=&RAZORPAY_KEY_ID
+      - RAZORPAY_KEY_SECRET=$RAZORPAY_KEY_SECRET
+    stdin_open: true
+    tty: true
+    ports:
+      - "5000:5000"

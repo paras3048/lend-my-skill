@@ -1,0 +1,10 @@
+.container {
+  @apply flex flex-row mt-2 pb-2;
+  border-bottom: 1px solid #9ca3af;
+  align-items: center;
+  justify-content: space-between;
+}
+.title {
+  font-family: "Whyte";
+  @apply text-xl;
+}

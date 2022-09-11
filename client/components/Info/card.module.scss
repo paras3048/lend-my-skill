@@ -1,0 +1,19 @@
+.container {
+  @apply transition-all duration-150 hover:scale-105 p-4 border-[1px] rounded-lg border-slate-400 bg-gray-200 text-center;
+  width: max-content;
+  min-width: 150px;
+  & span {
+    display: block;
+  }
+  .span1 {
+    font-family: "Whyte";
+    font-size: medium;
+    font-style: normal;
+  }
+  .span2 {
+    display: inline-flex;
+    & svg {
+      @apply ml-2;
+    }
+  }
+}
