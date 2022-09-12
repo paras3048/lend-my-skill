@@ -20,7 +20,6 @@ import { showNotification } from "@mantine/notifications";
 import sanitize from "sanitize-html";
 import Showdown from "showdown";
 
-
 interface ProfileDetails {
   bio: string;
   /**
@@ -91,9 +90,8 @@ export default function SettingsPage() {
         fetchProfile();
       })
       .catch((err) => {
-        console.log(err);
         return showNotification({
-          message: "An Error Occured",
+          message: err.response?.data?.message || "An Error Occured",
           color: "red",
           autoClose: 10000,
         });

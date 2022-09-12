@@ -57,9 +57,8 @@ export default function SearchPage() {
       .then(({ data }) => data)
       .then(setCategories)
       .catch((err) => {
-        console.log(err);
         showNotification({
-          message: "An Error Occured",
+          message: err.response?.data?.message || "An Error Occured",
           color: "red",
           autoClose: 10000,
         });
@@ -81,11 +80,10 @@ export default function SearchPage() {
         .then((data) => data.data)
         .then(setResults)
         .catch((err) => {
-          console.log(err);
           showNotification({
             color: "red",
             autoClose: 4000,
-            message: "An Error Occured",
+            message: err.response?.data?.message || "An Error Occured",
           });
         });
     } else if (type === "category") {
@@ -96,11 +94,10 @@ export default function SearchPage() {
         .then((data) => data.data)
         .then(setResults)
         .catch((err) => {
-          console.log(err);
           showNotification({
             color: "red",
             autoClose: 4000,
-            message: "An Error Occured",
+            message: err.response?.data?.message || "An Error Occured",
           });
         });
     }

@@ -22,6 +22,7 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(false);
   useEffect(() => {
     if (readCookie("token") === null) return void push("/auth/login");
+    if (!user.username) return void push("/auth/login");
   }, []);
 
   const handleFormSubmit = async () => {

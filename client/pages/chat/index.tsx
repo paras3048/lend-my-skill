@@ -84,7 +84,7 @@ export default function Chat() {
       })
       .catch((err) => {
         showNotification({
-          message: "An Error Occured",
+          message: err.response?.data?.message || "An Error Occured",
           color: "red",
           autoClose: 10000,
         });
@@ -112,9 +112,9 @@ export default function Chat() {
           autoClose: 10000,
         })
       )
-      .catch(() =>
+      .catch((err) =>
         showNotification({
-          message: "An Error Occured",
+          message: err.response?.data?.message || "An Error Occured",
           color: "red",
           autoClose: 10000,
         })
@@ -140,9 +140,8 @@ export default function Chat() {
         setCount(data.count);
       })
       .catch((err) => {
-        console.log(err);
         return showNotification({
-          message: "An Error Occured",
+          message: err.response?.data?.message || "An Error Occured",
           color: "red",
         });
       });

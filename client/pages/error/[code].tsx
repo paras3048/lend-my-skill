@@ -1,5 +1,4 @@
 import { Container } from "@mantine/core";
-
 import { NotFoundImage } from "components/404";
 import { BaseError } from "components/Error";
 import {
@@ -8,16 +7,23 @@ import {
   InferGetStaticPropsType,
   NextPage,
 } from "next";
+import { useRouter } from "next/router";
 
 const ErrorPage: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({
   code,
 }) => {
+  const { query } = useRouter();
+
   if (code === "404") return <NotFoundImage />;
   if (code === "403")
     return (
       <BaseError
         code="403"
-        description="Unfortunately, You're not allowed to access this Page/Resource"
+        description={
+          Boolean(query.append) === true
+            ? `Unfortunately, You're not allowed to access this Page/Resource. ${query.error}`
+            : "Unfortunately, You're not allowed to access this Page/Resource"
+        }
         title="403 - Forbidden"
       />
     );

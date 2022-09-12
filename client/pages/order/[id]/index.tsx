@@ -50,9 +50,8 @@ export default function DetailedOrderInformation() {
         setDetails(data);
       })
       .catch((err) => {
-        console.log(err);
         return showNotification({
-          message: "An Error Occured",
+          message: err.response?.data?.message || "An Error Occured",
           color: "red",
           autoClose: 10000,
         });
