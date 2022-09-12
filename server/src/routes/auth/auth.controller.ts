@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  ForbiddenException,
   Get,
   Headers,
   NotFoundException,
@@ -132,6 +133,8 @@ export class AuthController {
         postings: true,
         reviews: true,
         rating: true,
+        banned: true,
+        reasonForBan: true,
       },
     });
     if (!user)
@@ -139,6 +142,12 @@ export class AuthController {
         undefined,
         'No User Found With Provided Details.',
       );
+    if (user.banned) {
+      throw new ForbiddenException(
+        undefined,
+        `You've been Banned From Using This Platform. Reason: ${user.reasonForBan}`,
+      );
+    }
     const isPasswordSame = await compare(body.password, user.password);
     if (isPasswordSame === false)
       throw new UnauthorizedException(undefined, 'Incorrect Password!');
