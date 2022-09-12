@@ -28,6 +28,8 @@ model User {
   createdAt       DateTime        @default(now())
   UPIID           String          @default("")
   status          UserStatus      @default(offline)
+  banned          Boolean         @default(false)
+  reasonForBan    String?
   notifications   Notifications[]
   postings        Postings[]
   reviews         Reviews[]
