@@ -7,14 +7,19 @@ import { NavbarContent } from "./content";
 import { useRefetchProfile } from "hooks/useRefetchProfile";
 
 export const Navbar: FC<{}> = () => {
-  const router = useRouter();
   useRefetchProfile();
   return (
     <Header height={70}>
       <div className={styles.headerContainer}>
         <div className={styles.brandName}>
           <Link href="/" passHref>
-            <h2>Lend My Skill</h2>
+            <h2>
+              <img
+                src={"/brand/icon-transparent.png"}
+                className={styles.logo}
+              />
+              Lend My Skill
+            </h2>
           </Link>
         </div>
         <div className={styles.buttonContainer}>
