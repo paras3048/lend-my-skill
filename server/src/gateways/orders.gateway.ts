@@ -20,7 +20,6 @@ export class OrdersGateway implements OnGatewayConnection {
     }
     if (!client.handshake.query.userId)
       throw new WsException('No UserId Provided');
-    console.log(client.handshake);
     client.join(`order_${client.handshake.query.userId}`);
   }
   @SubscribeMessage('ORDER_CREATE')
