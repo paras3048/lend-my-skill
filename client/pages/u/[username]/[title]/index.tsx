@@ -1,6 +1,5 @@
 import { Avatar, Badge, Button, Group, Tabs } from "@mantine/core";
 import axios from "axios";
-import { ProfileCard } from "components/Dashboard/Profile";
 import { MetaTags } from "components/Meta";
 import { StarRating } from "components/Stars";
 import { GetFilteredHTML, URLGenerator } from "helpers";
@@ -9,7 +8,7 @@ import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import styles from "styles/scss/title.module.scss";
 import { Carousel } from "@mantine/carousel";
-import Image from "next/future/image";
+import Image from "next/image";
 import { useState } from "react";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
@@ -120,25 +119,22 @@ export default function Post(props: Props) {
                   src={`/api/${post.heroImage}`}
                   loading="eager"
                   placeholder="blur"
-                  width={200}
-                  height={200}
+                  layout="fill"
                   alt={`Banner Image`}
-                  blurDataURL="/brand/logo.png"
+                  blurDataURL={"/brand/icon-transparent.png"}
                 />
               </Carousel.Slide>
-              <Carousel.Slide>
-                {post.images.map((image) => (
+              {post.images.map((image) => (
+                <Carousel.Slide key={image}>
                   <Image
                     src={`/api/${image}`}
-                    key={image}
                     loading="lazy"
-                    width={200}
                     alt={`image`}
-                    height={200}
-                    blurDataURL="/brand/logo.png"
+                    layout="fill"
+                    blurDataURL={"/brand/icon-transparent.png"}
                   />
-                ))}
-              </Carousel.Slide>
+                </Carousel.Slide>
+              ))}
             </Carousel>
           </div>
           <div className={`${styles.offerHiddenForBigScreen} ${styles.offers}`}>
