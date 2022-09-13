@@ -73,6 +73,7 @@ export function GetFilteredHTML(md: string) {
         "code",
         "pre",
         "ol",
+        "s"
       ],
       disallowedTagsMode: "escape",
     }
