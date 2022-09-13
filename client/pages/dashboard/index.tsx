@@ -112,7 +112,7 @@ export default function Dashboard() {
               desc: "Rating",
               value: (
                 <>
-                  {user.rating!}
+                  {user.rating || 0}
                   <IconStar size={20} strokeWidth={1} />
                 </>
               ),
@@ -123,7 +123,7 @@ export default function Dashboard() {
               desc: "Posts",
               value: (
                 <>
-                  {user.postings!}
+                  {user.postings || 0}
                   <IconPencil size={20} strokeWidth={1} />
                 </>
               ),
@@ -134,7 +134,7 @@ export default function Dashboard() {
               desc: "Reviews",
               value: (
                 <>
-                  {user.reviews!}
+                  {user.reviews || 0}
                   <IconStar size={20} strokeWidth={1} />
                 </>
               ),
