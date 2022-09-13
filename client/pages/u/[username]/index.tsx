@@ -2,7 +2,7 @@ import { Tabs } from "@mantine/core";
 import axios from "axios";
 import { MetaTags } from "components/Meta";
 import { Profile } from "components/Profile";
-import { URLGenerator } from "helpers";
+import { GetFilteredHTML, URLGenerator } from "helpers";
 import {
   GetServerSideProps,
   InferGetServerSidePropsType,
@@ -51,54 +51,6 @@ const ProfilePage: NextPage<
   InferGetServerSidePropsType<typeof getServerSideProps>
 > = ({ profile }) => {
   const { query, push } = useRouter();
-  const [about, setAbout] = useState("");
-
-  useEffect(() => {
-    setAbout(
-      sanitize(
-        new Showdown.Converter({
-          emoji: true,
-          customizedHeaderId: true,
-          tables: true,
-          strikethrough: true,
-          ghCodeBlocks: true,
-          underline: true,
-          ghCompatibleHeaderId: true,
-          openLinksInNewWindow: true,
-        }).makeHtml(profile.detailedBio),
-        {
-          allowedTags: [
-            "div",
-            "span",
-            "code",
-            "img",
-            "a",
-            "table",
-            "thead",
-            "tbody",
-            "br",
-            "h1",
-            "h2",
-            "h3",
-            "h4",
-            "h5",
-            "h6",
-            "ul",
-            "li",
-            "p",
-            "marquee",
-            "b",
-            "strong",
-            "i",
-            "u",
-            "code",
-            "pre",
-          ],
-          disallowedTagsMode: "escape",
-        }
-      )
-    );
-  }, []);
 
   return (
     <>
@@ -145,7 +97,8 @@ const ProfilePage: NextPage<
               <div
                 dangerouslySetInnerHTML={{
                   __html:
-                    about || `This User Doesn't Have Any <code>About Me</code>`,
+                    GetFilteredHTML(profile.detailedBio) ||
+                    `This User Doesn't Have Any <code>About Me</code>`,
                 }}
                 className={markdownStyles.markdown}
               ></div>
