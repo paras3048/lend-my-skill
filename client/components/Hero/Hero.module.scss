@@ -7,15 +7,19 @@
     margin-bottom: 0;
     font-family: "Poppins", sans-serif;
     font-size: 5.5rem;
-    letter-spacing: -0.2rem;
     font-weight: bold;
+    line-height: 1.125;
+    letter-spacing: -0.02em;
+    @apply mt-4;
   }
   .gradientText {
+    display: block;
     margin-top: 0;
     color: transparent;
     background-clip: text;
     background-image: linear-gradient(to right, #3b82f6, #2dd4bf);
     -webkit-background-clip: text;
+    text-align: center;
   }
   & p {
     font-weight: lighter;
@@ -114,3 +118,4 @@
     }
   }
 }
+
