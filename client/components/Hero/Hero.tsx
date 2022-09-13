@@ -6,17 +6,17 @@ const Features = [
   {
     title: "Ease Of Use",
     description:
-      "Our Platform is Very Easy to Use, It has All The Features Needed By A User.",
+      "Our platform is very easy to use, it has all the features needed by a user.",
   },
   {
     title: "Low Comission",
     description:
-      "We Take Very Less Comission out of Your Pay. You Get Almost Full Amount.",
+      "We take very less comission out of your pay. You get almost full amount.",
   },
   {
     title: "Multiple Payment Methods",
     description:
-      "We Support Multiple Payment Methods including UPI and Paytm Wallet.",
+      "We support multiple payment methods including UPI and Paytm Wallet.",
   },
 ];
 
@@ -25,13 +25,13 @@ export function Hero() {
     <div className={styles.heroContainer}>
       <h1 data-aos="zoom-y-out" data-aos-delay="300">
         A Platform For
-      </h1>
-      <h1
-        data-aos="zoom-y-out"
-        data-aos-delay="300"
-        className={styles.gradientText}
-      >
-        Everyone.
+        <span
+          data-aos="zoom-y-out"
+          data-aos-delay="300"
+          className={styles.gradientText}
+        >
+          Everyone.
+        </span>
       </h1>
       <div className={styles.buttonContainer} data-aos="zoom-in">
         <Link href="/dashboard" passHref>
