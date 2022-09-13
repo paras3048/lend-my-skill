@@ -44,9 +44,8 @@ export default function LoginRoute() {
       .post(URLGenerator("Login"), { ...e })
       .catch((err) => {
         if (err && err.response) {
-          console.log(err.response.data.message);
           showNotification({
-            message: err.response.data.message,
+            message: err.response.data?.message || "An Error Occured",
             color: "red",
           });
         } else {
@@ -55,7 +54,7 @@ export default function LoginRoute() {
         return null;
       });
     if (data === null) return setLoading(false);
-    document.cookie = `token=${data.data.token};Secure;SameSite=None`;
+    document.cookie = `token=${data.data.token};SameSite=None`;
     const { user: responseUser } = data.data as { user: Partial<User> };
     setUser({
       type: "SetUser",

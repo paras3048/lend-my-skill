@@ -64,7 +64,7 @@ export default function SignUp() {
         return null;
       });
     if (data !== null) {
-      document.cookie = `token=${data.data.token};Secure;SameSite=None`;
+      document.cookie = `token=${data.data.token};SameSite=None`;
       const { user: responseUser } = data.data as { user: Partial<User> };
       setUser({
         type: "SetUser",
