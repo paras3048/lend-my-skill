@@ -9,10 +9,9 @@ import {
   Text,
   TextInput,
   Card,
-  Image,
-  Badge,
   Spoiler,
 } from "@mantine/core";
+import Image from "next/image";
 import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import axios from "axios";
@@ -204,13 +203,16 @@ function Posts(props: { posts: SearchResult[] }) {
           radius="md"
           withBorder
           key={p.id}
-          className="flex flex-col "
+          className="flex flex-col transition-all duration-[125ms] hover:scale-105"
         >
           <Card.Section>
             <Image
               src={`/api/${p.heroImage}`}
               height={160}
+              width={295}
               alt="Banner Image"
+              placeholder="blur"
+              blurDataURL="/brand/logo-transparent.png"
             />
           </Card.Section>
 
