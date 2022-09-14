@@ -2,7 +2,12 @@
   "$schema": "https://turborepo.org/schema.json",
   "pipeline": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": [
+        "^build",
+        "$NEXT_PUBLIC_RAZORPAY_KEY",
+        "$NEXT_PUBLIC_BACKEND_URL",
+        "$STORAGE_BUCKET_URL"
+      ],
       "outputs": [".next/**", "dist/**"]
     },
     "lint": {
