@@ -104,7 +104,7 @@ export class AuthController {
             },
           ],
         })
-        .catch((err) => {});
+        .catch(() => null);
     }
     return {
       token: jwt,

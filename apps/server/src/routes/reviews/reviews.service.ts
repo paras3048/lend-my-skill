@@ -29,7 +29,7 @@ export class ReviewsService {
       },
     });
 
-    let reviewsToSend: any[] = [];
+    const reviewsToSend: any[] = [];
     for (const r of reviews) {
       const creator = await prisma.user.findFirst({
         where: {

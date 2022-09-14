@@ -1,4 +1,11 @@
-import { Body, Controller, Get, Headers, Post, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Headers,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
 import { BaseGuard } from 'src/guards/base.guard';
 import { verifyJWT } from 'src/helpers/jwt';
 import { ChatsService } from './chats.service';

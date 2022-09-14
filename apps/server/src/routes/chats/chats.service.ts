@@ -6,7 +6,7 @@ import { prisma } from 'src/lib/db';
 export class ChatsService {
   async fetchAllChats(userId: string, type: 'buyer' | 'seller') {
     let allChats: any[];
-    let allChatz: any[] = [];
+    const allChatz: any[] = [];
     if (type === 'buyer') {
       allChats = await prisma.chat.findMany({
         where: {

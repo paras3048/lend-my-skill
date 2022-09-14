@@ -117,7 +117,7 @@ export class ProfileController {
           },
         ],
       })
-      .catch(() => {});
+      .catch(() => null);
     return {};
   }
 

@@ -24,7 +24,7 @@ interface CreatePosting {
   }[];
   heroImage: string;
   images?: string[];
-  categories:string[]
+  categories: string[];
 }
 
 @Controller('postings')
