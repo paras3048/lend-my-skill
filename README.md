@@ -3,7 +3,7 @@ Lend My Skill
 </h1>
 <div align="center">
 
-![image](/client/public/brand/icon-transparent.png)
+![image](/apps/client/public/brand/icon-transparent.png)
 
 </div>
 
