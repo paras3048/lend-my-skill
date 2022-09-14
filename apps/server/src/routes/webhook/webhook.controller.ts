@@ -1,12 +1,13 @@
-import { Body, Controller, Get, Headers, Post } from '@nestjs/common';
+import { Body, Controller, Headers, Post } from '@nestjs/common';
 import axios from 'axios';
 import { WEBHOOK_SECRET, WEBHOOK_URL } from 'src/constants';
-import { Emitter } from 'src/events';
 import { prisma } from 'src/lib/db';
 import { Webhook_payload } from 'src/types/webhook';
+/* eslint-disable */
 const {
   validateWebhookSignature,
 } = require('razorpay/dist/utils/razorpay-utils');
+/* eslint-enable */
 @Controller('webhook')
 export class WebhookController {
   @Post('/')
@@ -104,7 +105,7 @@ export class WebhookController {
               },
             ],
           })
-          .catch((err) => {});
+          .catch(() => null);
       }
     }
     return {};
