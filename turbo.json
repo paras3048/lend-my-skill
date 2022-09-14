@@ -19,6 +19,10 @@
     },
     "dev": {
       "outputMode": "full"
+    },
+    "test": {
+      "dependsOn": ["format"],
+      "outputMode": "full"
     }
   }
 }

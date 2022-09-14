@@ -111,7 +111,6 @@ export function DashboardSidebar() {
   const { asPath, push } = useRouter();
   const { user } = useUser();
   const router = useRouter();
-  const media = useMediaQuery("(min-width:500px)", true);
   useRefetchProfile();
   const links = mockdata.map((link) => (
     <NavbarLink

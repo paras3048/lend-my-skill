@@ -38,7 +38,7 @@ export default class _Document extends Document {
           </>
           <Script
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8135231984104285"
-            strategy="afterInteractive"
+            strategy="lazyOnload"
             crossOrigin="anonymous"
           ></Script>
         </Head>
