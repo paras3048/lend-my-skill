@@ -31,7 +31,7 @@ export class ReviewsController {
   @Post('/create')
   @UseGuards(BaseGuard)
   async createReview(
-    @Body() body: { username: string; message: string,stars:number },
+    @Body() body: { username: string; message: string; stars: number },
     @Headers('authorization') auth: string,
   ) {
     const userId = verifyJWT(auth)!;
@@ -39,7 +39,7 @@ export class ReviewsController {
       message: body.message,
       userId,
       username: body.username,
-      stars:body.stars
+      stars: body.stars,
     });
   }
 }
