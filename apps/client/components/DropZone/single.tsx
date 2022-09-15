@@ -1,6 +1,6 @@
 import { Group, Image, Text, useMantineTheme } from "@mantine/core";
 import { IconUpload, IconPhoto, IconX } from "@tabler/icons";
-import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE } from "@mantine/dropzone";
+import { Dropzone, DropzoneProps, IMAGE_MIME_TYPE,MIME_TYPES } from "@mantine/dropzone";
 import { Dispatch, SetStateAction } from "react";
 import { showNotification } from "@mantine/notifications";
 export function DropzoneSingle({
@@ -23,7 +23,7 @@ export function DropzoneSingle({
         })
       }
       maxSize={3 * 1024 ** 2}
-      accept={IMAGE_MIME_TYPE}
+      accept={[MIME_TYPES.jpeg,MIME_TYPES.png,MIME_TYPES.svg,MIME_TYPES.webp,"image/jpg"]}
     >
       <Group
         position="center"
