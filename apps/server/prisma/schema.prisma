@@ -30,6 +30,8 @@ model User {
   status          UserStatus      @default(offline)
   banned          Boolean         @default(false)
   reasonForBan    String?
+  wallet          BigInt          @default(0)
+  walletUpdatedAt DateTime?
   notifications   Notifications[]
   postings        Postings[]
   reviews         Reviews[]
@@ -54,17 +56,18 @@ model Notifications {
 }
 
 model Postings {
-  id             String     @id @unique @default(uuid())
-  title          String
-  description    String
-  postedAt       DateTime   @default(now())
-  userId         String?
-  slugifiedTitle String
-  images         String[]   @default([])
-  heroImage      String
-  User           User?      @relation(fields: [userId], references: [id])
-  offers         Offers[]
-  category       Category[]
+  id              String     @id @unique @default(uuid())
+  title           String
+  description     String
+  postedAt        DateTime   @default(now())
+  userId          String?
+  slugifiedTitle  String
+  images          String[]   @default([])
+  heroImage       String
+  User            User?      @relation(fields: [userId], references: [id])
+  offers          Offers[]
+  category        Category[]
+  acceptingOrders Boolean    @default(false)
 }
 
 model Offers {
@@ -145,4 +148,11 @@ model Category {
   description String
   Postings    Postings? @relation(fields: [postingsId], references: [id])
   postingsId  String?
+}
+
+enum Levels {
+  newSeller
+  level1
+  level2
+  bestSeller
 }

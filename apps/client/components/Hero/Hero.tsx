@@ -25,7 +25,7 @@ export function Hero() {
   const isSmallScreen = useMediaQuery("(max-width:700px)", false);
   return (
     <div className={styles.heroContainer}>
-      <h1 data-aos="zoom-y-out" data-aos-delay="300">
+      {/* <h1 data-aos="zoom-y-out" data-aos-delay="300">
         A Platform For
         <span
           data-aos="zoom-y-out"
@@ -34,8 +34,8 @@ export function Hero() {
         >
           Everyone.
         </span>
-      </h1>
-      <div className={styles.buttonContainer} data-aos="zoom-in">
+      </h1> */}
+      {/* <div className={styles.buttonContainer} data-aos="zoom-in">
         <Link href="/dashboard" passHref>
           <Button
             variant="filled"
@@ -45,7 +45,18 @@ export function Hero() {
             Discover Dashboard
           </Button>
         </Link>
-      </div>
+      </div> */}
+      <h1 data-aos="zoom-y-out" data-aos-delay="300">
+        Your Work 
+        <span
+          data-aos="zoom-y-out"
+          data-aos-delay="300"
+          className={styles.gradientText}
+        >
+          Our Work.
+        </span>
+      </h1>
+      <p className={styles.tag} data-aos="zoom-in" data-aos-delay="300" >Get Your Work Done By Skilled People</p>
       <div className={styles.featuresContainer} data-aos="zoom-in">
         <h2 className={styles.feature}>Features</h2>
         <div
