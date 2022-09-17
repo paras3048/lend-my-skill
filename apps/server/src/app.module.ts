@@ -35,6 +35,10 @@ import { SearchController } from './routes/search/search.controller';
 import { SearchService } from './routes/search/search.service';
 import { JwtService } from './services/jwt/jwt.service';
 import { JwtController } from './services/jwt/jwt.controller';
+import { EditController } from './routes/postings/edit/edit.controller';
+import { EditService } from './routes/postings/edit/edit.service';
+import { ErrorController } from './routes/error/error.controller';
+import { ErrorService } from './routes/error/error.service';
 
 @Module({
   imports: [
@@ -62,6 +66,8 @@ import { JwtController } from './services/jwt/jwt.controller';
     ReviewsController,
     SearchController,
     JwtController,
+    EditController,
+    ErrorController,
   ],
   providers: [
     AppService,
@@ -82,6 +88,8 @@ import { JwtController } from './services/jwt/jwt.controller';
     ReviewsService,
     SearchService,
     JwtService,
+    EditService,
+    ErrorService,
   ],
 })
 export class AppModule implements NestModule {

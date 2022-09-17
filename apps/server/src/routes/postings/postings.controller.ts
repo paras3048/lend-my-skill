@@ -2,13 +2,18 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Get,
   Headers,
+  NotFoundException,
+  Param,
   Post,
   Put,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 import { BaseGuard } from 'src/guards/base.guard';
 import { verifyJWT } from 'src/helpers/jwt';
+import { prisma } from 'src/lib/db';
 import { CreatePosting, FetchPosting } from 'src/validators/postings';
 import { PostingsService } from './postings.service';
 
@@ -56,5 +61,47 @@ export class PostingsController {
     }
     const id = verifyJWT(auth)!;
     return await this.service.createPosting({ ...body, userId: id });
+  }
+  @Get('/fetch/:username/all')
+  async fetchPostings(
+    @Param('username') username: string,
+    @Query('skip') skip?: string,
+    @Query('take') take?: string,
+  ) {
+    const user = await prisma.user.findFirst({
+      where: {
+        username: {
+          equals: username,
+          mode: 'insensitive',
+        },
+      },
+    });
+    if (!user)
+      throw new NotFoundException(
+        undefined,
+        'No user Found With Given Username',
+      );
+    return await prisma.postings.findMany({
+      where: {
+        User: {
+          username: {
+            equals: username,
+            mode: 'insensitive',
+          },
+        },
+      },
+      select: {
+        description: true,
+        id: true,
+        title: true,
+        postedAt: true,
+        slugifiedTitle: true,
+      },
+      orderBy: {
+        postedAt: 'desc',
+      },
+      skip: skip ? parseInt(skip) : 0,
+      take: take ? parseInt(take) : 20,
+    });
   }
 }

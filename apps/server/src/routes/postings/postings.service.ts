@@ -67,6 +67,7 @@ export class PostingsService {
             id: true,
           },
         },
+        acceptingOrders: true,
       },
     });
     if (posting === null)

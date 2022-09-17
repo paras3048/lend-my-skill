@@ -27,10 +27,10 @@ export class ProfileService {
             postedAt: true,
             slugifiedTitle: true,
           },
-
           orderBy: {
             postedAt: 'desc',
           },
+          take: 5,
         },
         reviews: {
           select: {

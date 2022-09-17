@@ -26,12 +26,8 @@ export class CategoriesController {
   async createCategory(@Body() body: Body) {
     try {
       const valid = Joi.object({
-        name: Joi.string()
-          .required()
-          .regex(/^[A-Za-z]+$/),
-        description: Joi.string()
-          .required()
-          .regex(/^[A-Za-z]+$/),
+        name: Joi.string().required(),
+        description: Joi.string().required(),
       });
       valid.validate(body);
     } catch (e) {
