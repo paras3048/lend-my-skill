@@ -52,6 +52,7 @@ export class UploadController {
       `${process.cwd()}/${file.path}`,
       (err) => err && console.log(`${err.message}`),
     );
+    console.log(error)
     if (error) {
       throw new BadRequestException(undefined, error.message);
     }
