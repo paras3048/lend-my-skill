@@ -25,7 +25,7 @@ export function Hero() {
   const isSmallScreen = useMediaQuery("(max-width:700px)", false);
   return (
     <div className={styles.heroContainer}>
-      {/* <h1 data-aos="zoom-y-out" data-aos-delay="300">
+      <h1 data-aos="zoom-y-out" data-aos-delay="300">
         A Platform For
         <span
           data-aos="zoom-y-out"
@@ -34,30 +34,30 @@ export function Hero() {
         >
           Everyone.
         </span>
-      </h1> */}
-      {/* <div className={styles.buttonContainer} data-aos="zoom-in">
+      </h1>
+      <p
+        className="text-xl text-gray-600 mb-8 mt-2"
+        data-aos="zoom-in"
+        data-aos-delay="300"
+        style={{
+          fontFamily: "'Whyte', sans-serif",
+        }}
+      >
+        Get Your Work Done By Skilled Freelancers
+      </p>
+      <div className={styles.buttonContainer} data-aos="zoom-in">
+
         <Link href="/dashboard" passHref>
           <Button
             variant="filled"
-            className="hover:bg-black bg-gray-900"
+            className="bg-black hover:bg-gray-900 duration-[125ms] transition-all hover:scale-110"
             color="dark"
           >
             Discover Dashboard
           </Button>
         </Link>
-      </div> */}
-      <h1 data-aos="zoom-y-out" data-aos-delay="300">
-        Your Work 
-        <span
-          data-aos="zoom-y-out"
-          data-aos-delay="300"
-          className={styles.gradientText}
-        >
-          Our Work.
-        </span>
-      </h1>
-      <p className={styles.tag} data-aos="zoom-in" data-aos-delay="300" >Get Your Work Done By Skilled People</p>
-      <div className={styles.featuresContainer} data-aos="zoom-in">
+      </div>
+      <div className={styles.featuresContainer}>
         <h2 className={styles.feature}>Features</h2>
         <div
           className={styles.featureContainer}
@@ -86,6 +86,9 @@ export function Hero() {
           </div>
         ))}
       </div>
+      {/* <h1 data-aos="zoom-y-out" data-aos-delay="300" className={styles.work}>
+        Your Work is Our <span className={styles.gradientText2}>Work.</span>
+      </h1> */}
     </div>
   );
 }

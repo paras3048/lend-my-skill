@@ -6,6 +6,7 @@ import { BACKEND_URL, RAZORPAY_KEY } from "constants/index";
 import { readCookie } from "helpers/cookies";
 import { useUser } from "hooks/useUser";
 import { showNotification } from "@mantine/notifications";
+import { useRouter } from "next/router";
 interface PaymentProps {
   price: number;
   orderType: string;
@@ -34,6 +35,7 @@ export function PaymentModal(p: { props: PaymentProps }) {
   } = props;
   const [agreed, setAgreed] = useState(false);
   const { user } = useUser();
+  const { query } = useRouter();
   useEffect(() => {
     const cookie = readCookie("token")!;
     setSocket(
@@ -53,8 +55,13 @@ export function PaymentModal(p: { props: PaymentProps }) {
 
   useEffect(() => {
     if (socket === undefined) return;
-    socket.on("open", () => console.log("Connect To Server Via WebSocket"));
-    socket.on("exception",console.log)
+    socket.on("exception", (msg) => {
+      return showNotification({
+        message: msg.message,
+        color: "red",
+        autoClose: 4000,
+      });
+    });
     socket.on("ORDER_CREATE", ({ orderId }: { orderId: string }) => {
       const options = {
         key: RAZORPAY_KEY,
@@ -99,6 +106,7 @@ export function PaymentModal(p: { props: PaymentProps }) {
       buyerId,
       sellerId,
       packageName,
+      postingTitle:query.title
     });
   };
 
