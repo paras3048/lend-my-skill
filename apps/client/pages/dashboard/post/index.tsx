@@ -85,14 +85,6 @@ export default function PostPage() {
       name: "",
       description: "",
     },
-    validate: {
-      name: (n) =>
-        /^[A-Z a-z]+$/.test(n) ? null : "Name Can Only Contain Alphabets",
-      description: (d) =>
-        /^[A-Z a-z]+$/.test(d)
-          ? null
-          : "Description Can Only Contain Alphabets",
-    },
   });
   useEffect(() => {
     fetchCategories();
@@ -120,7 +112,6 @@ export default function PostPage() {
     baseFormState.removeListItem("offers", index);
   };
   const handleFormSubmit = async (values: typeof baseFormState.values) => {
-    
     if (!heroImage)
       return showNotification({
         message: "Please Select A Banner Image.",
