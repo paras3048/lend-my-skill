@@ -23,4 +23,8 @@ export enum Routes {
   FetchPostsUsingTerms = "/search/term",
   FetchPostsUsingCategory = "/search/category",
   UpdateProfilePicture = "/profile/profile-image",
+  EditPostCategory = "/postings/edit/categories",
+  EditPostDescription = "/postings/edit/description",
+  EditPostStatus = "/postings/edit/status",
+  EditPostBulkDetails = "/postings/edit/bulk",
 }
