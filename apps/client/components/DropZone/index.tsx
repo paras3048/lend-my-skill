@@ -30,12 +30,9 @@ export function DropZonePreview({
   return (
     <div>
       <Dropzone
-        accept={[
-          MIME_TYPES.png,
-          MIME_TYPES.jpeg,
-          MIME_TYPES.jpeg,
-          MIME_TYPES.webp,
-        ]}
+        accept={{
+          "image/*": [],
+        }}
         onDrop={(f) => setFiles((oldFiles) => [...oldFiles, ...f])}
       >
         <Text align="center">
