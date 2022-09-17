@@ -16,7 +16,9 @@ import { UserProvider } from "context/user";
 function MyApp({ Component, pageProps, router }: AppProps) {
   const [colorScheme] = useState<ColorScheme>("light");
   useEffect(() => {
-    Aos.init();
+    if (router.pathname === "/") {
+      Aos.init();
+    }
   }, []);
   return (
     <UserProvider>
