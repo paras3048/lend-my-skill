@@ -16,10 +16,10 @@ import axios from "axios";
 import { MetaTags } from "components/Meta";
 import { URLGenerator } from "helpers";
 import { useUser } from "hooks/useUser";
-
+import { readCookie, createCookie } from "helpers/cookies";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { User } from "types/context";
 
 export default function LoginRoute() {
@@ -34,9 +34,13 @@ export default function LoginRoute() {
         val.length < 6 ? "Password should include at least 6 characters" : null,
     },
   });
-  const { setUser } = useUser();
+  const { user, setUser } = useUser();
   const { push } = useRouter();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (user.id && readCookie("token")) return void push("/dashboard");
+  }, [user.id]);
 
   const handleFormSubmit = async (e: typeof form.values) => {
     setLoading(true);
@@ -54,8 +58,9 @@ export default function LoginRoute() {
         return null;
       });
     if (data === null) return setLoading(false);
-    document.cookie = `token=${data.data.token};SameSite=None`;
+
     const { user: responseUser } = data.data as { user: Partial<User> };
+    createCookie("token", data.data.token, 30);
     setUser({
       type: "SetUser",
       payload: {

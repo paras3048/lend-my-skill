@@ -12,7 +12,7 @@ import {
 } from "@mantine/core";
 import styles from "../../styles/scss/signup.module.scss";
 import Head from "next/head";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { showNotification } from "@mantine/notifications";
 import { URLGenerator } from "helpers";
 import axios from "axios";
@@ -20,6 +20,7 @@ import { useUser } from "hooks/useUser";
 import { User } from "types/context";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { createCookie, readCookie } from "helpers/cookies";
 
 export default function SignUp() {
   const form = useForm({
@@ -41,6 +42,11 @@ export default function SignUp() {
   const { user, setUser } = useUser();
   const { push } = useRouter();
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (user.id && readCookie("token")) return void push("/dashboard");
+  }, [user.id]);
+
   const handleFormSubmit = async (values: typeof form.values) => {
     setLoading(true);
     const { email, name, password, username } = values;
@@ -64,7 +70,7 @@ export default function SignUp() {
         return null;
       });
     if (data !== null) {
-      document.cookie = `token=${data.data.token};SameSite=None`;
+      createCookie('token',data.data.token,30)
       const { user: responseUser } = data.data as { user: Partial<User> };
       setUser({
         type: "SetUser",
