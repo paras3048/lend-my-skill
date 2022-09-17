@@ -1,6 +1,5 @@
 import {
   OnGatewayConnection,
-  OnGatewayDisconnect,
   SubscribeMessage,
   WebSocketGateway,
   WsException,
@@ -30,10 +29,31 @@ export class OrdersGateway implements OnGatewayConnection {
       sellerId: string;
       buyerId: string;
       packageName: string;
+      postingTitle: string;
     },
   ) {
-    const { amount, buyerId, sellerId, packageName } = props;
-    console.log(props);
+    const { amount, buyerId, sellerId, packageName, postingTitle } = props;
+    const seller = await prisma.user.findFirst({
+      where: {
+        id: sellerId,
+      },
+      select: {
+        acceptingOrders: true,
+        postings: {
+          where: {
+            slugifiedTitle: postingTitle.toLowerCase(),
+          },
+          take: 1,
+        },
+      },
+    });
+    if (seller === null) throw new WsException('No User Found With Given Id');
+    if (seller.acceptingOrders === false)
+      throw new WsException('The User Is Not Accepting Orders');
+    if (!seller.postings[0])
+      throw new WsException('No Posting Found With Given Title.');
+    if (seller.postings[0].acceptingOrders === false)
+      throw new WsException('The User Is Not Accepting Orders on This Posting');
     const razorpay = new Razorpay(RAZORPAY_KEY_ID, RAZORPAY_KEY_SECRET);
     const trackedOrder = await prisma.trackedOrders.create({
       data: {
