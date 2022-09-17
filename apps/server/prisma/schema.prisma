@@ -32,6 +32,7 @@ model User {
   reasonForBan    String?
   wallet          BigInt          @default(0)
   walletUpdatedAt DateTime?
+  level           Levels          @default(newSeller)
   notifications   Notifications[]
   postings        Postings[]
   reviews         Reviews[]
@@ -67,7 +68,7 @@ model Postings {
   User            User?      @relation(fields: [userId], references: [id])
   offers          Offers[]
   category        Category[]
-  acceptingOrders Boolean    @default(false)
+  acceptingOrders Boolean    @default(true)
 }
 
 model Offers {
