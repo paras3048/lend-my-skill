@@ -12,15 +12,7 @@
     letter-spacing: -0.02em;
     @apply mt-4;
   }
-  .gradientText {
-    display: block;
-    margin-top: 0;
-    color: transparent;
-    background-clip: text;
-    background-image: linear-gradient(to right, #3b82f6, #2dd4bf);
-    -webkit-background-clip: text;
-    text-align: center;
-  }
+
   & p {
     font-weight: lighter;
     font-family: "Poppins", sans-serif;
@@ -120,12 +112,28 @@
   }
 }
 
-.tag{
-   
-  font-family: "Poppins", sans-serif;
+.tag {
+  font-family: "GT Walsheim", sans-serif !important;
   font-weight: 400 !important;
-  font-size: large;
-  &::after{
-    content: ".";
-  }
+  font-size: 1.3rem;
+  @apply mt-4;
+}
+
+.work {
+  font-size: xxx-large !important;
+  font-family: "Poppins", sans-serif !important;
+  @apply mt-6;
+}
+.gradientText {
+  display: block;
+  margin-top: 0;
+  color: transparent;
+  background-clip: text;
+  background-image: linear-gradient(to right, #3b82f6, #2dd4bf);
+  -webkit-background-clip: text;
+  text-align: center;
+}
+.gradientText2 {
+  @extend .gradientText;
+  display: unset;
 }
