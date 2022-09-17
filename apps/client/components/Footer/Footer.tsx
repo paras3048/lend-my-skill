@@ -49,14 +49,14 @@ const LINKS = [
     label: "Payment Terms",
     link: "/terms/payment",
   },
-  {
-    label: "About",
-    link: "/about",
-  },
-  {
-    label: "Docs",
-    link: "/docs",
-  },
+  // {
+  //   label: "About",
+  //   link: "/about",
+  // },
+  // {
+  //   label: "Docs",
+  //   link: "/docs",
+  // },
   {
     label: "Team",
     link: "/team",
