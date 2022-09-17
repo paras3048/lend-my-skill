@@ -46,7 +46,7 @@ interface Props {
 }
 
 export default function Post(props: Props) {
-  const { query } = useRouter();
+  const { push, asPath } = useRouter();
   const [modalOpened, setModalOpened] = useState(false);
   const { post } = props;
   const [value, setValue] = useState(post.offers[0].name);
@@ -98,7 +98,7 @@ export default function Post(props: Props) {
           {post.category && post.category.length > 0 ? (
             <p className="mt-4">
               {post.category.map((c) => (
-                <Badge color="yellow" variant="filled" key={c.id}>
+                <Badge color="yellow" variant="filled" key={c.id} ml="md">
                   {c.name}
                 </Badge>
               ))}
@@ -174,16 +174,28 @@ export default function Post(props: Props) {
                           __html: GetFilteredHTML(offer.description),
                         }}
                       />
-                      {post.User.id !== user.id && user.verified === true ? (
-                        <Group position="center" mt="xl">
+                      <Group position="center" mt="xl">
+                        {post.User.id !== user.id &&
+                        user.verified === true &&
+                        post.User.acceptingOrders === true ? (
                           <Button
                             className={`${styles.button} customButton`}
                             onClick={() => messWithModal(offer.price)}
                           >
                             Continue
                           </Button>
-                        </Group>
-                      ) : null}
+                        ) : null}
+                        {post.User.id === user.id &&
+                        user.username.toLowerCase() ===
+                          post.User.username.toLowerCase() ? (
+                          <Button
+                            className={`${styles.button} customButton`}
+                            onClick={() => push(`${asPath}/edit`)}
+                          >
+                            Edit
+                          </Button>
+                        ) : null}
+                      </Group>
                     </div>
                   </Tabs.Panel>
                 ))}
@@ -259,16 +271,28 @@ export default function Post(props: Props) {
                         __html: GetFilteredHTML(offer.description),
                       }}
                     />
-                    {post.User.id !== user.id ? (
-                      <Group position="center" mt="xl">
+                    <Group position="center" mt="xl">
+                      {post.User.id !== user.id &&
+                      user.verified === true &&
+                      post.User.acceptingOrders === true ? (
                         <Button
                           className={`${styles.button} customButton`}
                           onClick={() => messWithModal(offer.price)}
                         >
                           Continue
                         </Button>
-                      </Group>
-                    ) : null}
+                      ) : null}
+                      {post.User.id === user.id &&
+                      user.username.toLowerCase() ===
+                        post.User.username.toLowerCase() ? (
+                        <Button
+                          className={`${styles.button} customButton`}
+                          onClick={() => push(`${asPath}/edit`)}
+                        >
+                          Edit
+                        </Button>
+                      ) : null}
+                    </Group>
                   </div>
                 </Tabs.Panel>
               ))}
