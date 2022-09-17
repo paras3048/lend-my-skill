@@ -9,7 +9,7 @@ export function createCookie(name: string, value: string, days: number) {
     date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
     var expires = "; expires=" + date.toUTCString();
   } else var expires = "";
-  document.cookie = name + "=" + value + expires + "; path=/;SameSite=None";
+  document.cookie = name + "=" + value + expires + "; path=/;SameSite=None;Secure";
 }
 
 /**  usage
