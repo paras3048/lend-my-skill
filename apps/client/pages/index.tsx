@@ -19,7 +19,10 @@ const Footer = dynamic(
 const Home: NextPage = () => {
   return (
     <div>
-      <MetaTags description="A Platform For Everyone." title="Lend My Skill" />
+      <MetaTags
+        description="An Open Source Freelance Platform For Everyone."
+        title="Lend My Skill"
+      />
       <Hero />
       {/* <section className={styles.section}>
         <h3 className={styles.heading}>
