@@ -2,6 +2,9 @@ import styles from "./Hero.module.scss";
 import { Button } from "@mantine/core";
 import Link from "next/link";
 import { useMediaQuery } from "@mantine/hooks";
+import { useEffect, useState } from "react";
+import TextTransition from "components/Text";
+import { config } from "react-spring";
 
 const Features = [
   {
@@ -21,24 +24,45 @@ const Features = [
   },
 ];
 
+const Words = [
+  "Web Developer 💻",
+  "Blog Writers 📝",
+  "Video Editors 📹",
+  "Everyone.",
+];
+
 export function Hero() {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const intervalId = setInterval(
+      () => {
+        setIndex((i) => i + 1);
+      },
+      3000 // every 3 seconds
+    );
+    return () => clearTimeout(intervalId);
+  }, []);
+
   const isSmallScreen = useMediaQuery("(max-width:700px)", false);
   return (
-    <div className={styles.heroContainer}>
-      <h1 data-aos="zoom-y-out" data-aos-delay="300">
+    <div className={`${styles.heroContainer} items-center justify-center`}>
+      <h1 className="text-center">
         A Platform For
         <span
-          data-aos="zoom-y-out"
-          data-aos-delay="300"
-          className={styles.gradientText}
+          className={
+            Words[index % Words.length].toLowerCase() === "everyone."
+              ? `${styles.gradientText} text-center`
+              : "text-center"
+          }
         >
-          Everyone.
+          <TextTransition springConfig={config.gentle}>
+            {Words[index % Words.length]}
+          </TextTransition>
+          {/* Everyone. */}
         </span>
       </h1>
       <p
         className="text-xl text-gray-600 mb-8 mt-2"
-        data-aos="zoom-in"
-        data-aos-delay="300"
         style={{
           fontFamily: "'Whyte', sans-serif",
         }}
@@ -46,7 +70,6 @@ export function Hero() {
         Get Your Work Done By Skilled Freelancers
       </p>
       <div className={styles.buttonContainer} data-aos="zoom-in">
-
         <Link href="/dashboard" passHref>
           <Button
             variant="filled"
