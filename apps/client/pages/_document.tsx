@@ -36,11 +36,13 @@ export default class _Document extends Document {
             />
             <link rel="icon" href="/brand/icon-transparent.png" />
           </>
-          <Script
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8135231984104285"
-            strategy="lazyOnload"
-            crossOrigin="anonymous"
-          ></Script>
+          {process.env.NODE_ENV === "production" ? (
+            <Script
+              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8135231984104285"
+              strategy="lazyOnload"
+              crossOrigin="anonymous"
+            />
+          ) : null}
         </Head>
         <body>
           <Main />
