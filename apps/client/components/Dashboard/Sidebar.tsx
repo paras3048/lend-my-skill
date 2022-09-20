@@ -156,6 +156,7 @@ export function DashboardSidebar() {
           mt="xl"
           sx={{
             overflowX: "scroll",
+            flexWrap: "wrap",
           }}
         >
           {tabs}
