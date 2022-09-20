@@ -10,8 +10,8 @@ import {
   TextInput,
   Card,
   Spoiler,
+  Image,
 } from "@mantine/core";
-import Image from "next/image";
 import { useForm } from "@mantine/form";
 import { showNotification } from "@mantine/notifications";
 import axios from "axios";
@@ -47,9 +47,10 @@ export default function SearchPage() {
     []
   );
   const [categoriesFetched, setCategoriesFetched] = useState(false);
-  const { query, push } = useRouter();
+  const { query, push, isReady } = useRouter();
   const [results, setResults] = useState<SearchResult[]>([]);
   const [value, setValue] = useState((query.tab as string) || "term");
+  const [fetched, setFetched] = useState(false);
   useEffect(() => {
     axios
       .get(URLGenerator("FetchAllCategories"))
@@ -78,6 +79,7 @@ export default function SearchPage() {
         })
         .then((data) => data.data)
         .then(setResults)
+        .then(() => setFetched(true))
         .catch((err) => {
           showNotification({
             color: "red",
@@ -92,6 +94,8 @@ export default function SearchPage() {
         })
         .then((data) => data.data)
         .then(setResults)
+        .then(() => setFetched(true))
+
         .catch((err) => {
           showNotification({
             color: "red",
@@ -101,6 +105,12 @@ export default function SearchPage() {
         });
     }
   };
+
+  useEffect(() => {
+    if (query.query) {
+      form.setFieldValue("searchTerm", query.query as string);
+    }
+  }, [isReady]);
 
   return (
     <>
@@ -176,7 +186,15 @@ export default function SearchPage() {
             </>
           </Tabs.Panel>
         </Tabs>
-        {results && results.length > 0 ? <Posts posts={results} /> : null}
+        {fetched && results.length === 0 ? (
+          <>
+            <div className="flex flex-col items-center justify-center min-h-[50vh]">
+              <Text className="text-xl">No Result Found</Text>
+            </div>
+          </>
+        ) : (
+          <Posts posts={results} />
+        )}
       </div>
     </>
   );
@@ -208,11 +226,13 @@ function Posts(props: { posts: SearchResult[] }) {
           <Card.Section>
             <Image
               src={`/api/${p.heroImage}`}
-              height={160}
-              width={295}
+              height={200}
               alt="Banner Image"
-              placeholder="blur"
-              blurDataURL="/brand/logo-transparent.png"
+              style={{
+                aspectRatio: "1 / 1",
+                width: "100%",
+              }}
+              draggable
             />
           </Card.Section>
 
