@@ -109,6 +109,14 @@ export default function SearchPage() {
   useEffect(() => {
     if (query.query) {
       form.setFieldValue("searchTerm", query.query as string);
+      formSubmit({ searchTerm: query.query as string, categoryId: "" }, "term");
+    }
+    if (query.id) {
+      form.setFieldValue("categoryId", query.id as string);
+      formSubmit(
+        { searchTerm: "", categoryId: query.id as string },
+        "category"
+      );
     }
   }, [isReady]);
 
