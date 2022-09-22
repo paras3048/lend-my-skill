@@ -1,4 +1,4 @@
-import { Button, Group, Modal, SimpleGrid, Title } from "@mantine/core";
+import { Button, Center, Group, Modal, SimpleGrid, Title } from "@mantine/core";
 import { IconPencil, IconStar } from "@tabler/icons";
 import { ProfileCard } from "components/Dashboard/Profile";
 import { DashboardSidebar } from "components/Dashboard/Sidebar";
@@ -93,54 +93,12 @@ export default function Dashboard() {
       <DashboardSidebar />
 
       <div className={styles.cardsContainer}>
-        <div onClick={() => push(`/u/${user.username}`)}>
+        {/* <div onClick={() => push(`/u/${user.username}`)}>
           <div className={styles.profileCard}>
             <ProfileCard {...user} />
           </div>
-        </div>
-        <SimpleGrid
-          cols={3}
-          spacing={"md"}
-          breakpoints={[
-            { maxWidth: 980, cols: 3, spacing: "md" },
-            { maxWidth: 755, cols: 2, spacing: "sm" },
-            { maxWidth: 600, cols: 1, spacing: "sm" },
-          ]}
-        >
-          <InfoCard
-            props={{
-              desc: "Rating",
-              value: (
-                <>
-                  {user.rating || 0}
-                  <IconStar size={20} strokeWidth={1} />
-                </>
-              ),
-            }}
-          />
-          <InfoCard
-            props={{
-              desc: "Posts",
-              value: (
-                <>
-                  {user.postings || 0}
-                  <IconPencil size={20} strokeWidth={1} />
-                </>
-              ),
-            }}
-          />
-          <InfoCard
-            props={{
-              desc: "Reviews",
-              value: (
-                <>
-                  {user.reviews || 0}
-                  <IconStar size={20} strokeWidth={1} />
-                </>
-              ),
-            }}
-          />
-        </SimpleGrid>
+        </div> */}
+        <Center>Page Under Construction</Center>
       </div>
       <Modal
         opened={opened}
