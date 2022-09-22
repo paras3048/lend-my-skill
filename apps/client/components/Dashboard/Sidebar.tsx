@@ -24,6 +24,8 @@ import { useUser } from "hooks/useUser";
 import { useRouter } from "next/router";
 import sidebarStyles from "./sidebar.module.scss";
 import { useMediaQuery } from "@mantine/hooks";
+import { useState } from "react";
+import { DashboardNavbar } from "./Navbar";
 const useStyles = createStyles((theme) => ({
   link: {
     width: 50,
@@ -111,6 +113,8 @@ export function DashboardSidebar() {
   const { asPath, push } = useRouter();
   const { user } = useUser();
   const router = useRouter();
+  const media = useMediaQuery("(max-width:768px)", false);
+  const [value, setValue] = useState("/dashboard");
   useRefetchProfile();
   const links = mockdata.map((link) => (
     <NavbarLink
@@ -121,14 +125,19 @@ export function DashboardSidebar() {
     />
   ));
   const tabs = mockdata.map((link) => (
-    <Tabs.Tab value={link.path} icon={<link.icon />} key={link.path}>
+    <Tabs.Tab
+      value={link.path}
+      icon={<link.icon />}
+      key={link.path}
+      className={media ? "" : "flex-[0.05]"}
+    >
       {link.label}
     </Tabs.Tab>
   ));
 
   return (
     <>
-      <Navbar width={{ base: 80 }} p="md" className={sidebarStyles.sidebar}>
+      {/* <Navbar width={{ base: 80 }} p="md" className={sidebarStyles.sidebar}>
         <Center>
           <Avatar src={"/brand/icon-transparent.png"} />
         </Center>
@@ -146,9 +155,15 @@ export function DashboardSidebar() {
             />
           </Stack>
         </Navbar.Section>
-      </Navbar>
-      <Tabs
-        onTabChange={(value) => router.push(value as string)}
+      </Navbar> */}
+      <DashboardNavbar />
+      {/* <Tabs
+        onTabChange={(value) => {
+          setValue(value as string);
+          router.push(value as string);
+        }}
+        variant="pills"
+        value={value}
         className={sidebarStyles.tabs}
       >
         <Tabs.List
@@ -161,7 +176,7 @@ export function DashboardSidebar() {
         >
           {tabs}
         </Tabs.List>
-      </Tabs>
+      </Tabs> */}
     </>
   );
 }
