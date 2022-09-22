@@ -1,6 +1,6 @@
 import { useUser } from "hooks/useUser";
 import styles from "./content.module.scss";
-import { Avatar, Button, Menu, Burger } from "@mantine/core";
+import { Menu, Burger } from "@mantine/core";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import {
