@@ -25,7 +25,7 @@ const Features = [
 ];
 
 const Words = [
-  "Web Developer 💻",
+  "Web Developers 💻",
   "Blog Writers 📝",
   "Video Editors 📹",
   "Everyone.",
@@ -34,12 +34,9 @@ const Words = [
 export function Hero() {
   const [index, setIndex] = useState(0);
   useEffect(() => {
-    const intervalId = setInterval(
-      () => {
-        setIndex((i) => i + 1);
-      },
-      3000 // every 3 seconds
-    );
+    const intervalId = setInterval(() => {
+      setIndex((i) => i + 1);
+    }, 2000);
     return () => clearTimeout(intervalId);
   }, []);
 
@@ -48,15 +45,22 @@ export function Hero() {
     <div className={`${styles.heroContainer} items-center justify-center`}>
       <h1 className="text-center">
         A Platform For
-        <span
-          className={
-            Words[index % Words.length].toLowerCase() === "everyone."
-              ? `${styles.gradientText} text-center`
-              : "text-center"
-          }
-        >
-          <TextTransition springConfig={config.gentle}>
-            {Words[index % Words.length]}
+        <span>
+          <TextTransition
+            springConfig={config.gentle}
+            className={"text-center"}
+          >
+            {
+              <span
+                className={
+                  Words[index % Words.length].toLowerCase() === "everyone."
+                    ? `text-center bg-gradient-to-r from-[#3b82f6] to-[#2dd4bf] bg-clip-text text-transparent`
+                    : "text-center"
+                }
+              >
+                {Words[index % Words.length]}
+              </span>
+            }
           </TextTransition>
           {/* Everyone. */}
         </span>
