@@ -4,19 +4,13 @@ import {
   HoverCard,
   Group,
   Button,
-  UnstyledButton,
-  Text,
-  SimpleGrid,
-  ThemeIcon,
-  Anchor,
   Divider,
   Center,
   Box,
   Burger,
   Drawer,
-  Collapse,
   ScrollArea,
-  Avatar,
+  Container,
 } from "@mantine/core";
 import Logo from "../../public/brand/icon-transparent.png";
 import { useDisclosure } from "@mantine/hooks";
@@ -25,13 +19,14 @@ import {
   IconLayoutDashboard,
   IconUserCircle,
   IconSearch,
+  IconHome,
 } from "@tabler/icons";
 import Link from "next/link";
 import styles from "./Header.module.scss";
 import { useUser } from "hooks/useUser";
-import { NavbarContent } from "./content";
 import { useRouter } from "next/router";
-import { eraseCookie } from "helpers/cookies";
+import { useRefetchProfile } from "hooks/useRefetchProfile";
+import { NavbarDrawerContent } from "components/Dashboard/Navbar";
 
 const useStyles = createStyles((theme) => ({
   link: {
@@ -106,27 +101,11 @@ const useStyles = createStyles((theme) => ({
 export function Navbar() {
   const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
     useDisclosure(false);
-  const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
+  useRefetchProfile();
   const { classes, theme } = useStyles();
   const { user, setUser } = useUser();
-  const { push } = useRouter();
+  const { push, asPath } = useRouter();
 
-  // const links = mockdata.map((item) => (
-  //   <UnstyledButton className={classes.subLink} key={item.title}>
-  //     <Group noWrap align="flex-start">
-  //       <ThemeIcon size={34} variant="default" radius="md">
-  //         <item.icon size={22} color={theme.fn.primaryColor()} />
-  //       </ThemeIcon>
-  //       <div>
-  //         <Text size="sm" weight={500}>
-  //           {item.title}
-  //         </Text>
-  //         <Text size="xs" color="dimmed">
-  //           {item.description}
-  //         </Text>
-  //       </div>
-  //     </Group>
-  //   </UnstyledButton>
   // ));
 
   return (
@@ -177,118 +156,10 @@ export function Navbar() {
             </HoverCard>
           </Group>
           {user.id ? (
-            <div className={classes.hiddenMobile}>
-              <NavbarContent />
-            </div>
-          ) : (
-            <Group className={classes.hiddenMobile}>
-              <Link href="/auth/login" passHref>
-                <Button variant="default">Log in</Button>
-              </Link>
-              <Link href={"/auth/signup"} passHref>
-                <Button color="dark" className="customButton">
-                  Sign up
-                </Button>
-              </Link>
-            </Group>
-          )}
-          <Burger
-            opened={drawerOpened}
-            onClick={toggleDrawer}
-            className={classes.hiddenDesktop}
-          />
-        </Group>
-      </Header>
-
-      <Drawer
-        opened={drawerOpened}
-        onClose={closeDrawer}
-        size="100%"
-        padding="md"
-        title="Navigation"
-        className={classes.hiddenDesktop}
-        zIndex={1000000}
-        closeOnEscape
-        closeOnClickOutside
-      >
-        <ScrollArea sx={{ height: "calc(100vh - 60px)" }} mx="-md">
-          <Divider
-            my="sm"
-            color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
-          />
-          {user.id ? (
-            <>
-              <Link href="/dashboard">
-                <a className={classes.link}>
-                  <IconLayoutDashboard size={24} className="mr-2" />
-                  Dashboard
-                </a>
-              </Link>
-              <Link href="/search">
-                <a className={classes.link}>
-                  <IconSearch size={24} className="mr-2" />
-                  Search
-                </a>
-              </Link>
-              <Link href={`/u/${user.username}`}>
-                <a className={classes.link}>
-                  <IconUserCircle size={24} className="mr-2" />
-                  Profile
-                </a>
-              </Link>
-              <Divider
-                my="sm"
-                color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
-              />
-              <Group position="center" grow pb="xl" px="md">
-                <Button
-                  color="dark"
-                  className="customButton"
-                  onClick={() => {
-                    eraseCookie("token");
-                    setUser({ type: "Logout", payload: {} });
-                    push("/");
-                  }}
-                >
-                  <IconTrash size={24} className="mr-2" />
-                  Log Out
-                </Button>
-              </Group>
-            </>
+            <Burger opened={drawerOpened} onClick={toggleDrawer} />
           ) : (
             <>
-              <Link href="/">
-                <a className={classes.link}>Home</a>
-              </Link>
-              <HoverCard
-                width={600}
-                position="bottom"
-                radius="md"
-                shadow="md"
-                withinPortal
-              >
-                <HoverCard.Target>
-                  <Link href="/search">
-                    <a className={classes.link}>
-                      <Center inline>
-                        <Box component="span" mr={5}>
-                          Hire A Talent
-                        </Box>
-                        {/* <IconChevronDown
-                        size={16}
-                        color={theme.fn.primaryColor()}
-                      /> */}
-                      </Center>
-                    </a>
-                  </Link>
-                </HoverCard.Target>
-              </HoverCard>
-              <Divider
-                my="sm"
-                color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
-              />
-
-              <Group position="center" grow pb="xl" px="md">
+              <Group className={classes.hiddenMobile}>
                 <Link href="/auth/login" passHref>
                   <Button variant="default">Log in</Button>
                 </Link>
@@ -298,10 +169,119 @@ export function Navbar() {
                   </Button>
                 </Link>
               </Group>
+              <Burger
+                opened={drawerOpened}
+                onClick={toggleDrawer}
+                className={classes.hiddenDesktop}
+              />
             </>
           )}
-        </ScrollArea>
-      </Drawer>
+        </Group>
+      </Header>
+      {user.id ? (
+        <Drawer
+          opened={drawerOpened}
+          onClose={closeDrawer}
+          size={"lg"}
+          padding="md"
+          title="Navigation"
+          // className={classes.hiddenDesktop}
+          zIndex={1000000}
+          closeOnEscape
+          closeOnClickOutside
+          overlayOpacity={0.55}
+          overlayBlur={3}
+        >
+          <ScrollArea sx={{ height: "calc(100vh - 60px)" }} mx="-md">
+            <Divider
+              my="sm"
+              color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
+            />
+            <NavbarDrawerContent />
+          </ScrollArea>
+        </Drawer>
+      ) : (
+        <Drawer
+          opened={drawerOpened}
+          onClose={closeDrawer}
+          size={"lg"}
+          padding="md"
+          title="Navigation"
+          // className={classes.hiddenDesktop}
+          zIndex={1000000}
+          closeOnEscape
+          closeOnClickOutside
+          overlayOpacity={0.55}
+          overlayBlur={3}
+        >
+          <ScrollArea sx={{ height: "calc(100vh - 60px)" }} mx="-md">
+            <Divider
+              my="sm"
+              color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
+            />
+            <Container>
+              <a
+                href="/"
+                onClick={(e) => {
+                  e.preventDefault();
+                  closeDrawer();
+                  push("/");
+                }}
+              >
+                <div className="flex flex-row">
+                  <IconHome className="mx-2" size={20} />
+                  Home
+                </div>
+              </a>
+              <Divider
+                my="sm"
+                color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
+              />
+              <a
+                onClick={(e) => {
+                  e.preventDefault();
+                  closeDrawer();
+                  push("/search");
+                }}
+                href="/search"
+              >
+                <div className="flex flex-row">
+                  <IconSearch className="mx-2" size={20} />
+                  Hire A Talent
+                </div>
+              </a>
+              <Divider
+                my="sm"
+                color={theme.colorScheme === "dark" ? "dark.5" : "gray.1"}
+              />
+              <Group position="center">
+                <Button
+                  variant="default"
+                  fullWidth
+                  onClick={() => {
+                    closeDrawer();
+                    push("/auth/login");
+                  }}
+                >
+                  Log in
+                </Button>
+
+                <Button
+                  color="dark"
+                  className="customButton"
+                  fullWidth
+                  onClick={() => {
+                    closeDrawer();
+                    push("/auth/signup");
+                  }}
+                >
+                  Sign up
+                </Button>
+              </Group>
+            </Container>
+          </ScrollArea>
+        </Drawer>
+      )}
     </Box>
   );
 }
