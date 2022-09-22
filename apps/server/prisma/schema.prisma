@@ -11,33 +11,38 @@ datasource db {
 }
 
 model User {
-  id              String          @id @unique @default(uuid())
-  username        String          @unique
-  password        String
-  email           String          @unique
-  name            String
-  bio             String          @default("")
-  detailedBio     String          @default("")
-  verified        Boolean         @default(false)
-  emailVerified   Boolean         @default(false)
-  profileURL      String          @default("")
-  kycDocuments    String[]
-  acceptingOrders Boolean         @default(true)
-  rating          Int             @default(0)
-  ratedBy         BigInt          @default(0)
-  createdAt       DateTime        @default(now())
-  UPIID           String          @default("")
-  status          UserStatus      @default(offline)
-  banned          Boolean         @default(false)
-  reasonForBan    String?
-  wallet          BigInt          @default(0)
-  walletUpdatedAt DateTime?
-  level           Levels          @default(newSeller)
-  notifications   Notifications[]
-  postings        Postings[]
-  reviews         Reviews[]
-  Message         Message[]
-  Chat            Chat[]
+  id                 String          @id @unique @default(uuid())
+  username           String          @unique
+  password           String
+  email              String          @unique
+  name               String
+  bio                String          @default("")
+  detailedBio        String          @default("")
+  verified           Boolean         @default(false)
+  emailVerified      Boolean         @default(false)
+  profileURL         String          @default("")
+  kycDocuments       String[]
+  acceptingOrders    Boolean         @default(true)
+  rating             Int             @default(0)
+  ratedBy            BigInt          @default(0)
+  createdAt          DateTime        @default(now())
+  UPIID              String          @default("")
+  status             UserStatus      @default(offline)
+  banned             Boolean         @default(false)
+  reasonForBan       String?
+  wallet             BigInt          @default(0)
+  walletUpdatedAt    DateTime?
+  level              Levels          @default(newSeller)
+  notifications      Notifications[]
+  postings           Postings[]
+  Message            Message[]
+  Warnings           Warnings[]
+  ordersCreated      Orders[]        @relation("seller")
+  ordersRecieved     Orders[]        @relation("buyer")
+  reviewsCreated     Reviews[]       @relation("reviewer")
+  reviewsRecieved    Reviews[]       @relation("reviewed")
+  orderCreatedChats  Chat[]          @relation("orderCreator")
+  orderRecievedChats Chat[]          @relation("orderReciever")
 }
 
 enum UserStatus {
@@ -82,13 +87,14 @@ model Offers {
 }
 
 model Reviews {
-  id        String   @id @unique @default(uuid())
-  message   String
-  createdAt DateTime @updatedAt
-  User      User?    @relation(fields: [userId], references: [id])
-  userId    String?
-  creatorId String
-  stars     Int
+  id         String   @id @unique @default(uuid())
+  message    String
+  createdAt  DateTime @updatedAt
+  creatorId  String
+  stars      Int
+  reviewer   User?    @relation(fields: [creatorId], references: [id], name: "reviewer")
+  reviewed   User?    @relation(fields: [reviewedId], references: [id], name: "reviewed")
+  reviewedId String?
 }
 
 model Orders {
@@ -100,6 +106,8 @@ model Orders {
   chat      Chat        @relation(fields: [chatId], references: [id])
   chatId    String
   price     BigInt      @default(0)
+  buyer     User?       @relation(fields: [buyerId], references: [id], name: "buyer")
+  seller    User?       @relation(fields: [sellerId], references: [id], name: "seller")
 }
 
 enum OrderStatus {
@@ -108,14 +116,14 @@ enum OrderStatus {
 }
 
 model Chat {
-  id       String    @id @unique @default(uuid())
-  messages Message[]
-  buyerId  String
-  sellerId String
-  openedAt DateTime  @default(now())
-  Orders   Orders[]
-  user     User      @relation(fields: [userId], references: [id])
-  userId   String
+  id            String    @id @unique @default(uuid())
+  messages      Message[]
+  buyerId       String
+  sellerId      String
+  openedAt      DateTime  @default(now())
+  Orders        Orders[]
+  orderCreator  User?     @relation(fields: [buyerId], references: [id], name: "orderCreator")
+  orderReciever User?     @relation(fields: [sellerId], references: [id], name: "orderReciever")
 }
 
 model Message {
@@ -156,4 +164,12 @@ enum Levels {
   level1
   level2
   bestSeller
+}
+
+model Warnings {
+  id       String   @id @unique @default(cuid())
+  warnedAt DateTime @default(now())
+  message  String
+  user     User     @relation(fields: [userId], references: [id])
+  userId   String
 }
