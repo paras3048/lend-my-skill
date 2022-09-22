@@ -38,18 +38,17 @@ export class WebhookController {
 
         await prisma.orders.create({
           data: {
-            buyerId,
-            sellerId,
+            buyer: {
+              connect: { id: buyerId },
+            },
+            seller: { connect: { id: sellerId } },
             price: (payment.amount - (payment.fee + payment.tax)) / 100,
             chat: {
               create: {
-                buyerId,
-                sellerId,
-                user: {
-                  connect: {
-                    id: buyer.id,
-                  },
+                orderCreator: {
+                  connect: { id: buyerId },
                 },
+                orderReciever: { connect: { id: sellerId } },
                 messages: {
                   create: {
                     content: `This is a Chat Between ${buyer.name} and ${seller.name}. The ${buyer.name} bought ${packageName} Offer.`,
