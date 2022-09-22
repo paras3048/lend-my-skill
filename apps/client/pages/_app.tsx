@@ -9,17 +9,11 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Navbar, RouterTransition } from "components";
 import { NotificationsProvider } from "@mantine/notifications";
-import Aos from "aos";
-import "aos/dist/aos.css";
 import { UserProvider } from "context/user";
 
 function MyApp({ Component, pageProps, router }: AppProps) {
   const [colorScheme] = useState<ColorScheme>("light");
-  useEffect(() => {
-    if (router.pathname === "/") {
-      Aos.init();
-    }
-  }, []);
+
   return (
     <UserProvider>
       <ColorSchemeProvider
