@@ -8,5 +8,6 @@
     "format": "turbo run format",
     "build": "turbo run build",
     "test": "turbo run test"
-  }
+  },
+  "license": "GPL-3"
 }
