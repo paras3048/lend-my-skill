@@ -11,7 +11,7 @@ export function useRefetchProfile() {
   const { setUser, user } = useUser();
   const { replace, asPath, reload } = useRouter();
   useEffect(() => {
-    if (user.id && asPath.includes("/dashboard") === false) return;
+    if (user.id) return;
     const cookie = readCookie("token");
     if (!cookie) return;
     if (
