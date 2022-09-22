@@ -11,4 +11,7 @@ export type User = {
   postings?: number;
   rating?: number;
   reviews?: number;
+  wallet?: number;
+  notifications?: number;
+  Warnings?: number;
 };
