@@ -39,6 +39,8 @@ import { EditController } from './routes/postings/edit/edit.controller';
 import { EditService } from './routes/postings/edit/edit.service';
 import { ErrorController } from './routes/error/error.controller';
 import { ErrorService } from './routes/error/error.service';
+import { ExploreController } from './routes/explore/explore.controller';
+import { ExploreService } from './routes/explore/explore.service';
 
 @Module({
   imports: [
@@ -68,6 +70,7 @@ import { ErrorService } from './routes/error/error.service';
     JwtController,
     EditController,
     ErrorController,
+    ExploreController,
   ],
   providers: [
     AppService,
@@ -90,6 +93,7 @@ import { ErrorService } from './routes/error/error.service';
     JwtService,
     EditService,
     ErrorService,
+    ExploreService,
   ],
 })
 export class AppModule implements NestModule {

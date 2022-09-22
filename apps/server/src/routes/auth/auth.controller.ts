@@ -11,7 +11,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { compare, hash } from 'bcrypt';
-import { SALT_ROUNDS, STORAGE_BUCKET_URL, WEBHOOK_URL } from 'src/constants';
+import { SALT_ROUNDS, WEBHOOK_URL } from 'src/constants';
 import { BaseGuard } from 'src/guards/base.guard';
 import { createJWT, verifyJWT } from 'src/helpers/jwt';
 import { prisma } from 'src/lib/db';
@@ -81,8 +81,14 @@ export class AuthController {
         verified: true,
         acceptingOrders: true,
         postings: true,
-        reviews: true,
+        reviewsRecieved: true,
         rating: true,
+        notifications: {
+          where: {
+            seen: false,
+          },
+        },
+        Warnings: true,
       },
     });
     const jwt = createJWT(newUser.id);
@@ -110,8 +116,9 @@ export class AuthController {
       token: jwt,
       user: {
         ...newUser,
+        notifications: newUser.notifications.length,
         postings: newUser.postings.length,
-        reviews: newUser.reviews.length,
+        reviews: newUser.reviewsRecieved.length,
       },
     };
   }
@@ -131,10 +138,17 @@ export class AuthController {
         verified: true,
         acceptingOrders: true,
         postings: true,
-        reviews: true,
+        reviewsRecieved: true,
         rating: true,
         banned: true,
         reasonForBan: true,
+        wallet: true,
+        notifications: {
+          where: {
+            seen: false,
+          },
+        },
+        Warnings: true,
       },
     });
     if (!user)
@@ -158,7 +172,8 @@ export class AuthController {
       user: {
         ...user,
         postings: user.postings.length,
-        reviews: user.reviews.length,
+        reviews: user.reviewsRecieved.length,
+        notifications: user.notifications.length,
       },
     };
   }
@@ -178,8 +193,15 @@ export class AuthController {
         verified: true,
         acceptingOrders: true,
         postings: true,
-        reviews: true,
         rating: true,
+        notifications: {
+          where: {
+            seen: false,
+          },
+        },
+        reviewsRecieved: true,
+        wallet: true,
+        Warnings: true,
       },
     });
     const token = createJWT(user.id);
@@ -188,7 +210,9 @@ export class AuthController {
       user: {
         ...user,
         postings: user.postings.length,
-        reviews: user.reviews.length,
+        reviews: user.reviewsRecieved.length,
+        notifications: user.notifications.length,
+        Warnings: user.Warnings.length,
       },
     };
   }

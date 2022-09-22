@@ -47,6 +47,31 @@ export class OrdersGateway implements OnGatewayConnection {
         },
       },
     });
+
+    const buyer = await prisma.user.findFirst({
+      where: {
+        id: buyerId,
+      },
+      select: {
+        verified: true,
+        banned: true,
+        reasonForBan: true,
+      },
+    });
+    if (buyer === null) {
+      throw new WsException('No User Found With Given Id');
+    }
+    if (buyer.banned) {
+      throw new WsException(
+        `You've been banned from using this platform. Reason: ${buyer.reasonForBan!}`,
+      );
+    }
+    if (!buyer.verified) {
+      throw new WsException(
+        'Your Account is not verified. Please Check Your Email for the instructions to verify your account.',
+      );
+    }
+
     if (seller === null) throw new WsException('No User Found With Given Id');
     if (seller.acceptingOrders === false)
       throw new WsException('The User Is Not Accepting Orders');
