@@ -1,4 +1,3 @@
-// components/RouterTransition.tsx
 import { useEffect } from "react";
 import { useRouter } from "next/router";
 import {
@@ -26,5 +25,7 @@ export function RouterTransition() {
     };
   }, [router.asPath]);
 
-  return <NavigationProgress color={"#2eccc4"} />;
+  return (
+    <NavigationProgress color={"#2eccc4"} />
+  );
 }
