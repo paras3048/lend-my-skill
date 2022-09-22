@@ -4,7 +4,7 @@ import { prisma } from 'src/lib/db';
 
 @Injectable()
 export class ProfileService {
-  async Profile(username: string): Promise<Partial<User> | null> {
+  async Profile(username: string) {
     const partialProfile = await prisma.user.findFirst({
       where: {
         username,
@@ -32,11 +32,11 @@ export class ProfileService {
           },
           take: 5,
         },
-        reviews: {
+        reviewsRecieved: {
           select: {
             message: true,
             id: true,
-            User: {
+            reviewer: {
               select: {
                 username: true,
                 profileURL: true,
@@ -46,7 +46,13 @@ export class ProfileService {
         },
       },
     });
-    return partialProfile;
+    return {
+      ...partialProfile,
+      reviews: partialProfile.reviewsRecieved.map((r) => ({
+        ...r,
+        User: r.reviewer,
+      })),
+    };
   }
   async updateProfile(username: string, profile: Partial<Omit<User, 'email'>>) {
     await prisma.user.update({

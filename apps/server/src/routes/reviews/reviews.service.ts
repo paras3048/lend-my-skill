@@ -11,7 +11,7 @@ export class ReviewsService {
   async fetchReviewsOfUser(username: string, skip?: number, take?: number) {
     const reviews = await prisma.reviews.findMany({
       where: {
-        User: {
+        reviewed: {
           username: username.toLowerCase(),
         },
       },
@@ -45,7 +45,7 @@ export class ReviewsService {
 
     const reviewsCount = await prisma.reviews.count({
       where: {
-        User: {
+        reviewed: {
           username: username.toLowerCase(),
         },
       },
@@ -72,7 +72,7 @@ export class ReviewsService {
         id: true,
         ratedBy: true,
         rating: true,
-        reviews: {
+        reviewsRecieved: {
           select: {
             stars: true,
           },
@@ -99,10 +99,6 @@ export class ReviewsService {
         undefined,
         "You're not allowed to perform this action.",
       );
-    console.table({
-      userId: user.id,
-      buyerId: buyer.id,
-    });
     const order = await prisma.orders.findFirst({
       where: {
         sellerId: user.id,
@@ -126,7 +122,7 @@ export class ReviewsService {
       );
 
     let reviewsCount = stars;
-    for (const r of user.reviews) {
+    for (const r of user.reviewsRecieved) {
       reviewsCount += r.stars;
     }
     const averageRating = Number(
@@ -134,9 +130,13 @@ export class ReviewsService {
     );
     const newReview = await prisma.reviews.create({
       data: {
-        creatorId: userId,
+        reviewer: {
+          connect: {
+            id: userId,
+          },
+        },
         message,
-        User: {
+        reviewed: {
           connect: {
             id: user.id,
           },
